@@ -37,11 +37,9 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-
 	@GetMapping("/id/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id) {
 		return ResponseEntity.of(userRepository.findById(id));
-		
 	}
 	
 	@GetMapping("/{username}")
@@ -62,13 +60,10 @@ public class UserController {
 	        }
 
 	        user.setPassword(passwordEncoder.encode(createUserRequest.getPassword()));
-
 	        Cart cart = new Cart();
 	        cartRepository.save(cart);
 	        user.setCart(cart);
-
 	        userRepository.save(user);
-
 	        // Log the request details and success status
 	        logger.info("CreateUser request received for username: {}", createUserRequest.getUsername());
 	        logger.info("CreateUser successful for username: {}", createUserRequest.getUsername());
